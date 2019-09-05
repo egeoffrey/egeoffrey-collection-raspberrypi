@@ -1,0 +1,40 @@
+branch: development
+container_config:
+  network_mode: host
+description: Play a notification out loud through an attached speaker
+dockerhub: egeoffrey/egeoffrey-notification-speaker
+github: egeoffrey/egeoffrey-notification-speaker
+icon: volume-up
+manifest_schema: 2
+modules:
+- notification/speaker:
+    description: Play a notification out loud through an attached speaker
+    module_configuration:
+    - description: The text-to-speach engine to use
+      format: google|picotts
+      name: engine
+      placeholder: user@email.com
+      required: true
+    - description: The ALSA device the speaker is attached to
+      format: string
+      name: device
+      placeholder: plughw:1,0
+      required: false
+    - description: Weather the speaker has to be connected through bluetooth
+      format: checkbox
+      name: bluetooth_speaker
+      required: true
+    - description: The MAC address of the bluetooth speaker
+      format: string
+      name: bluetooth_speaker_mac_address
+      placeholder: F5:B6:AB:45:63:C6
+      required: false
+    - description: The volume to set to the speaker
+      format: string
+      name: bluetooth_speaker_mac_address
+      placeholder: 100
+      required: false
+package: egeoffrey-notification-speaker
+revision: 12
+tags: notification speaker voice
+version: 1.0

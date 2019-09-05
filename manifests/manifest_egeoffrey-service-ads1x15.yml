@@ -1,0 +1,39 @@
+branch: development
+container_config:
+  privileged: true
+description: retrieve values from a ads1x15 analog to digital converter
+dockerhub: egeoffrey/egeoffrey-service-ads1x15
+github: egeoffrey/egeoffrey-service-ads1x15
+icon: ruler
+manifest_schema: 2
+modules:
+- service/ads1x15:
+    description: retrieve values from a ads1x15 analog to digital converter
+    service_configuration:
+      pull:
+      - description: Channel to use
+        format: int
+        name: channel
+        placeholder: 2
+        required: true
+      - description: Converter type
+        format: ads1115|ads1015
+        name: type
+        required: true
+      - description: The address to use
+        format: string
+        name: address
+        placeholder: '0x49'
+        required: true
+      - description: Converter gain
+        format: 2/3|1|2|4|8|16
+        name: address
+        required: true
+      - description: What to output
+        format: volt|raw|integer|percentage
+        name: output
+        required: true
+package: egeoffrey-service-ads1x15
+revision: 9
+tags: service ads1x15 analog
+version: 1.0

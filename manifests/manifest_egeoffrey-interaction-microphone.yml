@@ -1,0 +1,29 @@
+branch: development
+description: Capture voice commands and respond accordingly
+dockerhub: egeoffrey/egeoffrey-interaction-microphone
+github: egeoffrey/egeoffrey-interaction-microphone
+icon: microphone
+manifest_schema: 2
+modules:
+- interaction/microphone:
+    description: Capture voice commands and respond accordingly
+    module_configuration:
+    - description: The speech-to-text engine to use
+      format: google|pocketsphinx
+      name: engine
+      required: true
+    - description: The name of the eGeoffrey notification service the speaker is running
+        on
+      format: string
+      name: speaker
+      placeholder: speaker
+      required: true
+    - description: The ALSA device the microphone is attached to
+      format: string
+      name: device
+      placeholder: plughw:1,0
+      required: false
+package: egeoffrey-interaction-microphone
+revision: 9
+tags: interaction voice
+version: 1.0

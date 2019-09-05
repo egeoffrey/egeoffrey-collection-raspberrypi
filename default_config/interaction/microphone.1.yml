@@ -1,0 +1,3 @@
+device: plughw:0,1
+engine: google
+speaker: speaker

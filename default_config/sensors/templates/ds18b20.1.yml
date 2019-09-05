@@ -1,0 +1,13 @@
+disabled: true
+description: ds18b20
+format: float_2
+retain: history
+calculate: avg_min_max
+service:
+  configuration:
+    device: 28-051691d49bff
+  mode: pull
+  name: ds18b20
+  schedule:
+    minutes: 10
+    trigger: interval

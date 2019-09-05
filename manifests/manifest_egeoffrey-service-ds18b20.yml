@@ -1,0 +1,22 @@
+branch: development
+container_config:
+  privileged: true
+description: Retrieve temperature from a ds18b20 sensor
+dockerhub: egeoffrey/egeoffrey-service-ds18b20
+github: egeoffrey/egeoffrey-service-ds18b20
+icon: thermometer-three-quarters
+manifest_schema: 2
+modules:
+- service/ds18b20:
+    description: Retrieve temperature from a ds18b20 sensor
+    service_configuration:
+      pull:
+      - description: The device identifier that can be found under /sys/bus/w1/devices
+        format: string
+        name: device
+        placeholder: 28-0000067b9508
+        required: true
+package: egeoffrey-service-ds18b20
+revision: 9
+tags: service ds18b20 temperature weather raspberrypi
+version: 1.0

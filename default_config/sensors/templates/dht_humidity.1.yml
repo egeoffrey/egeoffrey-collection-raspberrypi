@@ -1,0 +1,15 @@
+disabled: true
+description: dht
+format: int
+retain: history
+calculate: avg_min_max
+service:
+  configuration:
+    measure: humidity
+    type: dht22
+    pin: 2
+  mode: pull
+  name: dht
+  schedule:
+    minutes: 10
+    trigger: interval

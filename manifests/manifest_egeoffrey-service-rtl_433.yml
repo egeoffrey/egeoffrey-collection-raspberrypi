@@ -1,0 +1,32 @@
+branch: development
+container_config:
+  privileged: true
+description: Interact with an attached RTL-SDR device
+dockerhub: egeoffrey/egeoffrey-service-rtl_433
+github: egeoffrey/egeoffrey-service-rtl_433
+icon: broadcast-tower
+manifest_schema: 2
+modules:
+- service/rtl_433:
+    description: Interact with an attached RTL-SDR device
+    module_configuration:
+    - description: The command for running rtl_433 executable
+      format: string
+      name: port_listen
+      placeholder: /usr/local/bin/rtl_433
+      required: true
+    service_configuration:
+      push:
+      - description: Filter in provided data in a key1=value1&key2=value2 format
+        format: string
+        name: filter
+        placeholder: model=Generic Sensor&id=3d c1 5c
+        required: false
+      - description: The key whose value has to be retrieved
+        format: string
+        name: measure
+        required: false
+package: egeoffrey-service-rtl_433
+revision: 12
+tags: service rtl_433 rtl_sdr
+version: 1.0

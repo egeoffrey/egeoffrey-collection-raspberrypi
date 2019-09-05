@@ -1,0 +1,13 @@
+egeoffrey/egeoffrey-interaction-microphone:development
+egeoffrey/egeoffrey-notification-buzzer:development
+egeoffrey/egeoffrey-notification-gsm:development
+egeoffrey/egeoffrey-notification-speaker:development
+egeoffrey/egeoffrey-service-ads1x15:development
+egeoffrey/egeoffrey-service-bluetooth:development
+egeoffrey/egeoffrey-service-dht:development
+egeoffrey/egeoffrey-service-ds18b20:development
+egeoffrey/egeoffrey-service-gpio:development
+egeoffrey/egeoffrey-service-messagebridge:development
+egeoffrey/egeoffrey-service-mysensors:development
+egeoffrey/egeoffrey-service-rtl_433:development
+egeoffrey/egeoffrey-service-system:development

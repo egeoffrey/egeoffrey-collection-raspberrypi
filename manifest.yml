@@ -1,0 +1,591 @@
+branch: development
+container_config:
+  devices:
+  - /dev/ttyAMA0:/dev/ttyAMA0
+  network_mode: host
+  privileged: true
+description: An All-In-One collection of the most common eGeoffrey packages running
+  on Raspberry Pi
+dockerhub: egeoffrey/egeoffrey-distro-raspberrypi
+github: egeoffrey/egeoffrey-distro-raspberrypi
+icon: microchip
+manifest_schema: 2
+modules:
+- interaction/microphone:
+    description: Capture voice commands and respond accordingly
+    module_configuration:
+    - description: The speech-to-text engine to use
+      format: google|pocketsphinx
+      name: engine
+      required: true
+    - description: The name of the eGeoffrey notification service the speaker is running
+        on
+      format: string
+      name: speaker
+      placeholder: speaker
+      required: true
+    - description: The ALSA device the microphone is attached to
+      format: string
+      name: device
+      placeholder: plughw:1,0
+      required: false
+- notification/buzzer_raspi:
+    description: play a sound through a buzzer connected to a pin
+    module_configuration:
+    - description: The pin the buzzer is attached to
+      format: int
+      name: pin
+      placeholder: 20
+      required: true
+    - description: The number of seconds the buzzer should be on when run
+      format: int
+      name: duration
+      placeholder: 3
+      required: true
+- notification/buzzer_orangepi:
+    description: play a sound through a buzzer connected to a pin
+    module_configuration:
+    - description: The pin the buzzer is attached to
+      format: int
+      name: pin
+      placeholder: 20
+      required: true
+    - description: The number of seconds the buzzer should be on when run
+      format: int
+      name: duration
+      placeholder: 3
+      required: true
+- notification/gsm_call:
+    description: Make a phone call through an attached serial device (just a few rings)
+    module_configuration:
+    - description: The serial port the modem device is attached to
+      format: string
+      name: port
+      placeholder: /dev/gsm
+      required: true
+    - description: The baud rate to use for communicating with the device
+      format: int
+      name: baud
+      placeholder: 115200
+      required: true
+    - description: Recipient phone number(s), comma separated
+      format: string
+      name: to
+      placeholder: 112341231232
+      required: true
+- notification/gsm_sms:
+    description: Send a sms through an attached serial device
+    module_configuration:
+    - description: The serial port the modem device is attached to
+      format: string
+      name: port
+      placeholder: /dev/gsm
+      required: true
+    - description: The baud rate to use for communicating with the device
+      format: int
+      name: baud
+      placeholder: 115200
+      required: true
+    - description: Recipient phone number(s), comma separated
+      format: string
+      name: to
+      placeholder: 112341231232
+      required: true
+- notification/speaker:
+    description: Play a notification out loud through an attached speaker
+    module_configuration:
+    - description: The text-to-speach engine to use
+      format: google|picotts
+      name: engine
+      placeholder: user@email.com
+      required: true
+    - description: The ALSA device the speaker is attached to
+      format: string
+      name: device
+      placeholder: plughw:1,0
+      required: false
+    - description: Weather the speaker has to be connected through bluetooth
+      format: checkbox
+      name: bluetooth_speaker
+      required: true
+    - description: The MAC address of the bluetooth speaker
+      format: string
+      name: bluetooth_speaker_mac_address
+      placeholder: F5:B6:AB:45:63:C6
+      required: false
+    - description: The volume to set to the speaker
+      format: string
+      name: bluetooth_speaker_mac_address
+      placeholder: 100
+      required: false
+- service/ads1x15:
+    description: retrieve values from a ads1x15 analog to digital converter
+    service_configuration:
+      pull:
+      - description: Channel to use
+        format: int
+        name: channel
+        placeholder: 2
+        required: true
+      - description: Converter type
+        format: ads1115|ads1015
+        name: type
+        required: true
+      - description: The address to use
+        format: string
+        name: address
+        placeholder: '0x49'
+        required: true
+      - description: Converter gain
+        format: 2/3|1|2|4|8|16
+        name: address
+        required: true
+      - description: What to output
+        format: volt|raw|integer|percentage
+        name: output
+        required: true
+- service/bluetooth:
+    description: retrieve values from a bluetooth/BLE device
+    module_configuration:
+    - description: The adapter the bluetooth device is attached to
+      format: string
+      name: adapter
+      placeholder: hci0
+      required: true
+    service_configuration:
+      pull:
+      - description: Handle address
+        format: string
+        name: handle
+        placeholder: '0x49'
+        required: true
+      - description: Handle type
+        format: value|notification
+        name: handle_type
+        required: true
+      - description: The MAC address of the device
+        format: string
+        name: mac
+        placeholder: 00:11:22:33:44
+        required: true
+      - description: Format of the data to return
+        format: number|string
+        name: format
+        required: false
+- service/bluetooth_discover:
+    description: discover bluetooth/BLE devices in range
+    module_configuration:
+    - description: The adapter the bluetooth device is attached to
+      format: string
+      name: adapter
+      placeholder: hci0
+      required: true
+    service_configuration: {}
+- service/dht:
+    description: Retrieve temperature/humidity from a DHT11/DHT22 sensor
+    service_configuration:
+      pull:
+      - description: What to measure
+        format: temperature|humidity
+        name: measure
+        required: true
+      - description: DHT Sensor Type
+        format: dht11|dht22
+        name: type
+        required: true
+      - description: The pin the sensor is attached to
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+- service/ds18b20:
+    description: Retrieve temperature from a ds18b20 sensor
+    service_configuration:
+      pull:
+      - description: The device identifier that can be found under /sys/bus/w1/devices
+        format: string
+        name: device
+        placeholder: 28-0000067b9508
+        required: true
+- service/gpio_raspi:
+    description: Read/write from a GPIO pin (raspberrypi)
+    service_configuration:
+      actuator:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      pull:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      push:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      - description: The triggering event
+        format: rising|falling|both
+        name: edge_detect
+        required: true
+      - description: Set pull up/pull down resistor
+        format: up|down
+        name: pull_up_down
+        required: false
+- service/gpio_orangepi:
+    description: Read/write from a GPIO pin (orangepi)
+    service_configuration:
+      actuator:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      pull:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      push:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      - description: The triggering event
+        format: rising|falling|both
+        name: edge_detect
+        required: true
+- service/messagebridge:
+    description: Interact with Ciseco/WirelessThings devices
+    module_configuration:
+    - description: The udp port the Messagebridge is broadcasting data to
+      format: int
+      name: port_listen
+      placeholder: 50140
+      required: true
+    - description: The udp port the Messagebridge is listening
+      format: int
+      name: port_send
+      placeholder: 50141
+      required: true
+    service_configuration:
+      actuator:
+      - description: The ID of the device
+        format: string
+        name: node_id
+        placeholder: TA
+        required: true
+      - description: For devices with a Generic IO firmware put it to sleep for additional
+          minutes
+        format: int
+        name: cycle_sleep_min
+        placeholder: 5
+        required: false
+      push:
+      - description: The ID of the device
+        format: string
+        name: node_id
+        placeholder: TA
+        required: true
+      - description: The measure to take
+        format: string
+        name: measure
+        placeholder: TEMP
+        required: true
+- service/mysensors_serial:
+    description: Interact with a MySensors serial gateway
+    module_configuration:
+    - description: The serial port the MySensors gateway is attached to
+      format: string
+      name: port
+      placeholder: /dev/mysensors
+      required: true
+    - description: The baud rate to use for communicating with the device
+      format: int
+      name: baud
+      placeholder: 9600
+      required: true
+    service_configuration:
+      actuator:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      - description: Mandatory for sleeping nodes to define how many messages to keep
+          in the queue and send once awake
+        format: int
+        name: queue_size
+        placeholder: 1
+        required: false
+      pull:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      push:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+- service/mysensors_mqtt:
+    description: Interact with a MySensors MQTT gateway
+    module_configuration:
+    - description: The MQTT hostname to connect to
+      format: string
+      name: hostname
+      placeholder: egeoffrey-gateway
+      required: true
+    - description: The port of the MQTT broker
+      format: int
+      name: port
+      placeholder: 1883
+      required: true
+    - description: The username for authenticating against the mqtt broker
+      format: string
+      name: username
+      placeholder: username
+      required: false
+    - description: The password for authenticating against the mqtt broker
+      format: password
+      name: password
+      placeholder: password
+      required: false
+    - description: The topic prefix to subscribe to
+      format: string
+      name: subscribe_topic_prefix
+      placeholder: mysensors-out
+      required: true
+    - description: The topic prefix to publish data into
+      format: string
+      name: publish_topic_prefix
+      placeholder: mysensors-in
+      required: true
+    service_configuration:
+      actuator:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      - description: Mandatory for sleeping nodes to define how many messages to keep
+          in the queue and send once awake
+        format: int
+        name: queue_size
+        placeholder: 1
+        required: false
+      pull:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      push:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+- service/mysensors_ethernet:
+    description: Interact with a MySensors ethernet gateway
+    module_configuration:
+    - description: The IP address or hostname running the MySensors gateway
+      format: string
+      name: hostname
+      placeholder: 192.168.0.230
+      required: true
+    - description: The port the gateway is listening to
+      format: int
+      name: port
+      placeholder: 5003
+      required: true
+    service_configuration:
+      actuator:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      - description: Mandatory for sleeping nodes to define how many messages to keep
+          in the queue and send once awake
+        format: int
+        name: queue_size
+        placeholder: 1
+        required: false
+      pull:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+      push:
+      - description: The unique identifier of the node
+        format: int
+        name: node_id
+        placeholder: 1
+        required: true
+      - description: Each node can have several sensors attached. This is the child-id
+          that uniquely identifies one attached sensor
+        format: int
+        name: child_id
+        placeholder: 3
+        required: true
+      - description: MySensors command to trigger
+        format: PRESENTATION|SET|REQ|INTERNAL|STREAM
+        name: command
+        required: true
+      - description: MySensors type
+        format: S_DOOR|S_MOTION|S_SMOKE|S_BINARY|S_DIMMER|S_COVER|S_TEMP|S_HUM|S_BARO|S_WIND|S_RAIN|S_UV|S_WEIGHT|S_POWER|S_HEATER|S_DISTANCE|S_LIGHT_LEVEL|S_ARDUINO_NODE|S_ARDUINO_REPEATER_NODE|S_LOCK|S_IR|S_WATER|S_AIR_QUALITY|S_CUSTOM|S_DUST|S_SCENE_CONTROLLER|S_RGB_LIGHT|S_RGBW_LIGHT|S_COLOR_SENSOR|S_HVAC|S_MULTIMETER|S_SPRINKLER|S_WATER_LEAK|S_SOUND|S_VIBRATION|S_MOISTURE|S_INFO|S_GAS|S_GPS|S_WATER_QUALITY|V_TEMP|V_HUM|V_STATUS|V_PERCENTAGE|V_PRESSURE|V_FORECAST|V_RAIN|V_RAINRATE|V_WIND|V_GUST|V_DIRECTION|V_UV|V_WEIGHT|V_DISTANCE|V_IMPEDANCE|V_ARMED|V_TRIPPED|V_WATT|V_KWH|V_SCENE_ON|V_SCENE_OFF|V_HVAC_FLOW_STATE|V_HVAC_SPEED|V_LIGHT_LEVEL|V_VAR1|V_VAR2|V_VAR3|V_VAR4|V_VAR5|V_UP|V_DOWN|V_STOP|V_IR_SEND|V_IR_RECEIVE|V_FLOW|V_VOLUME|V_LOCK_STATUS|V_LEVEL|V_VOLTAGE|V_CURRENT|V_RGB|V_RGBW|V_ID|V_UNIT_PREFIX|V_HVAC_SETPOINT_COOL|V_HVAC_SETPOINT_HEAT|V_HVAC_FLOW_MODE|V_TEXT|V_CUSTOM|V_POSITION|V_IR_RECORD|V_PH|V_ORP|V_EC|V_VAR|V_VA|V_POWER_FACTOR|I_BATTERY_LEVEL|I_TIME|I_VERSION|I_ID_REQUEST|I_ID_RESPONSE|I_INCLUSION_MODE|I_CONFIG|I_FIND_PARENT|I_FIND_PARENT_RESPONSE|I_LOG_MESSAGE|I_CHILDREN|I_SKETCH_NAME|I_SKETCH_VERSION|I_REBOOT|I_GATEWAY_READY|I_SIGNING_PRESENTATION|I_NONCE_REQUEST|I_NONCE_RESPONSE|I_HEARTBEAT_REQUEST|I_PRESENTATION|I_DISCOVER_REQUEST|I_DISCOVER_RESPONSE|I_HEARTBEAT_RESPONSE|I_LOCKED|I_PING|I_PONG|I_REGISTRATION_REQUEST|I_REGISTRATION_RESPONSE|I_DEBUG|I_SIGNAL_REPORT_REQUEST|I_SIGNAL_REPORT_REVERSE|I_SIGNAL_REPORT_RESPONSE|I_PRE_SLEEP_NOTIFICATION|I_POST_SLEEP_NOTIFICATION|ST_FIRMWARE_CONFIG_REQUEST|ST_FIRMWARE_CONFIG_RESPONSE|ST_FIRMWARE_REQUEST|ST_FIRMWARE_RESPONSE|ST_SOUND|ST_IMAGE
+        name: type
+        required: true
+- service/rtl_433:
+    description: Interact with an attached RTL-SDR device
+    module_configuration:
+    - description: The command for running rtl_433 executable
+      format: string
+      name: port_listen
+      placeholder: /usr/local/bin/rtl_433
+      required: true
+    service_configuration:
+      push:
+      - description: Filter in provided data in a key1=value1&key2=value2 format
+        format: string
+        name: filter
+        placeholder: model=Generic Sensor&id=3d c1 5c
+        required: false
+      - description: The key whose value has to be retrieved
+        format: string
+        name: measure
+        required: false
+- service/system:
+    description: Collect telemetry information from the system
+    service_configuration:
+      pull:
+      - description: The statistic to retrieve
+        format: cpu_user|cpu_system|ram_used|swap_used|load_1|load_5|load_15|network_services|network_connections|temperature|uptime|logwatch|reboot|shutdown|system_logs
+        name: measure
+        required: true
+package: egeoffrey-distro-raspberrypi
+revision: 1
+tags: distro raspberrypi
+version: 1.0

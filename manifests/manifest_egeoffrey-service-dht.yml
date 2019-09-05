@@ -1,0 +1,30 @@
+branch: development
+container_config:
+  privileged: true
+description: Retrieve temperature/humidity from a DHT11/DHT22 sensor
+dockerhub: egeoffrey/egeoffrey-service-dht
+github: egeoffrey/egeoffrey-service-dht
+icon: thermometer-three-quarters
+manifest_schema: 2
+modules:
+- service/dht:
+    description: Retrieve temperature/humidity from a DHT11/DHT22 sensor
+    service_configuration:
+      pull:
+      - description: What to measure
+        format: temperature|humidity
+        name: measure
+        required: true
+      - description: DHT Sensor Type
+        format: dht11|dht22
+        name: type
+        required: true
+      - description: The pin the sensor is attached to
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+package: egeoffrey-service-dht
+revision: 9
+tags: service dht weather temperature raspberrypi
+version: 1.0

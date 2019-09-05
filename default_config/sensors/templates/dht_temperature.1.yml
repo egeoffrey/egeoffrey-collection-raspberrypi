@@ -1,0 +1,15 @@
+disabled: true
+description: dht
+format: float_2
+retain: history
+calculate: avg_min_max
+service:
+  configuration:
+    measure: temperature
+    type: dht22
+    pin: 2
+  mode: pull
+  name: dht
+  schedule:
+    minutes: 10
+    trigger: interval

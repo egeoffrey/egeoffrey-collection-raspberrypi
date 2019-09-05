@@ -1,0 +1,67 @@
+branch: development
+container_config:
+  privileged: true
+description: Read/write from a GPIO pin
+dockerhub: egeoffrey/egeoffrey-service-gpio
+github: egeoffrey/egeoffrey-service-gpio
+icon: microchip
+manifest_schema: 2
+modules:
+- service/gpio_raspi:
+    description: Read/write from a GPIO pin (raspberrypi)
+    service_configuration:
+      actuator:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      pull:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      push:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      - description: The triggering event
+        format: rising|falling|both
+        name: edge_detect
+        required: true
+      - description: Set pull up/pull down resistor
+        format: up|down
+        name: pull_up_down
+        required: false
+- service/gpio_orangepi:
+    description: Read/write from a GPIO pin (orangepi)
+    service_configuration:
+      actuator:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      pull:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      push:
+      - description: The pin of the GPIO to use (BCM)
+        format: int
+        name: pin
+        placeholder: 2
+        required: true
+      - description: The triggering event
+        format: rising|falling|both
+        name: edge_detect
+        required: true
+package: egeoffrey-service-gpio
+revision: 7
+tags: service gpio raspberrypi orangepi
+version: 1.0

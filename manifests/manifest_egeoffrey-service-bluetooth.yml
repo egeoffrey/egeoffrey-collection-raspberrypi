@@ -1,0 +1,50 @@
+branch: development
+container_config:
+  privileged: true
+description: Retrieve values from a bluetooth/BLE device
+dockerhub: egeoffrey/egeoffrey-service-bluetooth
+github: egeoffrey/egeoffrey-service-bluetooth
+icon: wifi
+manifest_schema: 2
+modules:
+- service/bluetooth:
+    description: retrieve values from a bluetooth/BLE device
+    module_configuration:
+    - description: The adapter the bluetooth device is attached to
+      format: string
+      name: adapter
+      placeholder: hci0
+      required: true
+    service_configuration:
+      pull:
+      - description: Handle address
+        format: string
+        name: handle
+        placeholder: '0x49'
+        required: true
+      - description: Handle type
+        format: value|notification
+        name: handle_type
+        required: true
+      - description: The MAC address of the device
+        format: string
+        name: mac
+        placeholder: 00:11:22:33:44
+        required: true
+      - description: Format of the data to return
+        format: number|string
+        name: format
+        required: false
+- service/bluetooth_discover:
+    description: discover bluetooth/BLE devices in range
+    module_configuration:
+    - description: The adapter the bluetooth device is attached to
+      format: string
+      name: adapter
+      placeholder: hci0
+      required: true
+    service_configuration: {}
+package: egeoffrey-service-bluetooth
+revision: 12
+tags: service bluetooth
+version: 1.0
