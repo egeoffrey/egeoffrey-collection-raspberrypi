@@ -43,8 +43,8 @@ class Speaker(Notification):
             self.log_debug(sdk.python.utils.command.run("setup/connect_bluetooth_speakers.exp "+self.config["bluetooth_speaker_mac_address"]))
         # set up speaker volume
         if "speaker_volume" in self.config:
-            self.log_info("Setting speaker volume to "+self.config["speaker_volume"]+"%...")
-            self.log_debug(sdk.python.utils.command.run("setup/set_volume.sh "+self.config["speaker_volume"]+"%"))
+            self.log_info("Setting speaker volume to "+str(self.config["speaker_volume"])+"%...")
+            self.log_debug(sdk.python.utils.command.run("setup/set_volume.sh "+str(self.config["speaker_volume"])+"%"))
             
     # What to do when shutting down
     def on_stop(self):
@@ -52,7 +52,7 @@ class Speaker(Notification):
         
     # play an audio file
     def play(self, filename):
-        device = "-t alsa "+str(self.config["device"]) if self.config["device"] is not None else ""
+        device = "-t alsa "+str(self.config["device"]) if "device" in self.config else ""
         self.log_debug(sdk.python.utils.command.run("play "+filename+" "+device, background=False))
 
    # What to do when ask to notify
