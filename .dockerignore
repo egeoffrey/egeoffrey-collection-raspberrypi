@@ -7,7 +7,7 @@
 *.pyc
 sdk
 sdk/
-distro/.tmp
-distro/.build
-distro/.tmp/
-distro/.build/
+collection/.tmp
+collection/.build
+collection/.tmp/
+collection/.build/

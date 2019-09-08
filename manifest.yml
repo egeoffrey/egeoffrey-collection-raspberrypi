@@ -6,8 +6,8 @@ container_config:
   privileged: true
 description: An All-In-One collection of the most common eGeoffrey packages running
   on Raspberry Pi
-dockerhub: egeoffrey/egeoffrey-distro-raspberrypi
-github: egeoffrey/egeoffrey-distro-raspberrypi
+dockerhub: egeoffrey/egeoffrey-collection-raspberrypi
+github: egeoffrey/egeoffrey-collection-raspberrypi
 icon: microchip
 manifest_schema: 2
 modules:
@@ -585,7 +585,7 @@ modules:
         format: cpu_user|cpu_system|ram_used|swap_used|load_1|load_5|load_15|network_services|network_connections|temperature|uptime|logwatch|reboot|shutdown|system_logs
         name: measure
         required: true
-package: egeoffrey-distro-raspberrypi
-revision: 3
-tags: distro raspberrypi
+package: egeoffrey-collection-raspberrypi
+revision: 4
+tags: collection raspberrypi
 version: 1.0

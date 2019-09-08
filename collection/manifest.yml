@@ -1,11 +1,11 @@
 branch: development
 description: An All-In-One collection of the most common eGeoffrey packages running on Raspberry Pi
-dockerhub: egeoffrey/egeoffrey-distro-raspberrypi
-github: egeoffrey/egeoffrey-distro-raspberrypi
+dockerhub: egeoffrey/egeoffrey-collection-raspberrypi
+github: egeoffrey/egeoffrey-collection-raspberrypi
 icon: microchip
 manifest_schema: 2
 modules: []
-package: egeoffrey-distro-raspberrypi
+package: egeoffrey-collection-raspberrypi
 revision: 1
-tags: distro raspberrypi
+tags: collection raspberrypi
 version: 1.0

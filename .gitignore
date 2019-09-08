@@ -4,5 +4,5 @@
 *~
 *.pyc
 sdk
-distro/.tmp
-distro/.build
+collection/.tmp
+collection/.build
