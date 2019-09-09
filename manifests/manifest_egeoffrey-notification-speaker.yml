@@ -35,6 +35,6 @@ modules:
       placeholder: 100
       required: false
 package: egeoffrey-notification-speaker
-revision: 14
+revision: 15
 tags: notification speaker voice
 version: 1.0

@@ -586,6 +586,6 @@ modules:
         name: measure
         required: true
 package: egeoffrey-collection-raspberrypi
-revision: 4
+revision: 5
 tags: collection raspberrypi
 version: 1.0
