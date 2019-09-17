@@ -25,6 +25,6 @@ modules:
         placeholder: 2
         required: true
 package: egeoffrey-service-dht
-revision: 9
+revision: 10
 tags: service dht weather temperature raspberrypi
 version: 1.0
