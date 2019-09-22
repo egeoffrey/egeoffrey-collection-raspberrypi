@@ -1,4 +1,4 @@
-branch: development
+branch: master
 description: An All-In-One collection of the most common eGeoffrey packages running on Raspberry Pi
 dockerhub: egeoffrey/egeoffrey-collection-raspberrypi
 github: egeoffrey/egeoffrey-collection-raspberrypi

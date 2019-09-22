@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   devices:
   - /dev/ttyAMA0:/dev/ttyAMA0
@@ -586,6 +586,6 @@ modules:
         name: measure
         required: true
 package: egeoffrey-collection-raspberrypi
-revision: 9
+revision: 10
 tags: collection raspberrypi
 version: 1.0

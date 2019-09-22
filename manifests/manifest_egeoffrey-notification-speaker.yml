@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   network_mode: host
 description: Play a notification out loud through an attached speaker
@@ -35,6 +35,6 @@ modules:
       placeholder: 100
       required: false
 package: egeoffrey-notification-speaker
-revision: 16
+revision: 17
 tags: notification speaker voice
 version: 1.0

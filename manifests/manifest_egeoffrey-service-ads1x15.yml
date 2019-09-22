@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   privileged: true
 description: retrieve values from a ads1x15 analog to digital converter
@@ -34,6 +34,6 @@ modules:
         name: output
         required: true
 package: egeoffrey-service-ads1x15
-revision: 10
+revision: 11
 tags: service ads1x15 analog
 version: 1.0

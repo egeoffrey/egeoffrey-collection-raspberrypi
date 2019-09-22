@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   privileged: true
 description: Retrieve temperature/humidity from a DHT11/DHT22 sensor
@@ -25,6 +25,6 @@ modules:
         placeholder: 2
         required: true
 package: egeoffrey-service-dht
-revision: 10
+revision: 11
 tags: service dht weather temperature raspberrypi
 version: 1.0

@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   privileged: true
 description: Retrieve temperature from a ds18b20 sensor
@@ -17,6 +17,6 @@ modules:
         placeholder: 28-0000067b9508
         required: true
 package: egeoffrey-service-ds18b20
-revision: 10
+revision: 11
 tags: service ds18b20 temperature weather raspberrypi
 version: 1.0

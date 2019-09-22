@@ -1,4 +1,4 @@
-branch: development
+branch: master
 description: Capture voice commands and respond accordingly
 dockerhub: egeoffrey/egeoffrey-interaction-microphone
 github: egeoffrey/egeoffrey-interaction-microphone
@@ -24,6 +24,6 @@ modules:
       placeholder: plughw:1,0
       required: false
 package: egeoffrey-interaction-microphone
-revision: 10
+revision: 11
 tags: interaction voice
 version: 1.0

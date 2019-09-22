@@ -1,4 +1,4 @@
-branch: development
+branch: master
 container_config:
   privileged: true
 description: Retrieve values from a bluetooth/BLE device
@@ -45,6 +45,6 @@ modules:
       required: true
     service_configuration: {}
 package: egeoffrey-service-bluetooth
-revision: 13
+revision: 14
 tags: service bluetooth
 version: 1.0
