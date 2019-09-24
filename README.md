@@ -190,6 +190,18 @@ To configure each module included in this package, once started, click on the *'
   - Service configuration:
     - Mode 'pull':
       - *measure**: the statistic to retrieve
+- **service/zigbee2mqtt**: interact with sensors through a mqtt broker
+  - Module configuration:
+    - *hostname**: the MQTT broker hostname to connect to (e.g. egeoffrey-gateway)
+    - *port**: the port of the MQTT broker (e.g. 1883)
+    - *username*: the username for authenticating against the mqtt broker (e.g. username)
+    - *password*: the password for authenticating against the mqtt broker (e.g. password)
+    - *base_topic**: zigbee2mqtt base topic (e.g. zigbee2mqtt)
+  - Service configuration:
+    - Mode 'push':
+      - *device_id**: the friendly name assiged to the device (if using the device id without the leading 0x) (e.g. 00158d000346c0b3)
+      - *key**: the key of the payload whose measure has to be extracted (e.g. temperature)
+      - *filter*: filter in only a subset of data based on conditions provided in the format key1=value1&key2=value2 (e.g. action=rotate_right)
 
 ## Contribute
 
@@ -231,4 +243,4 @@ collection raspberrypi
 
 ## Version
 
-The version of this egeoffrey-collection-raspberrypi is 1.0-10 on the master branch.
+The version of this egeoffrey-collection-raspberrypi is 1.0-11 on the master branch.

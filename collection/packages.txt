@@ -11,3 +11,4 @@ egeoffrey/egeoffrey-service-messagebridge:master
 egeoffrey/egeoffrey-service-mysensors:master
 egeoffrey/egeoffrey-service-rtl_433:master
 egeoffrey/egeoffrey-service-system:master
+egeoffrey/egeoffrey-service-zigbee2mqtt:master
