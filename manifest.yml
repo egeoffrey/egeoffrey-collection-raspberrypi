@@ -633,6 +633,6 @@ modules:
         placeholder: action=rotate_right
         required: false
 package: egeoffrey-collection-raspberrypi
-revision: 11
+revision: 12
 tags: collection raspberrypi
 version: 1.0

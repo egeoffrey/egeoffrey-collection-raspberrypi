@@ -45,6 +45,6 @@ modules:
       required: true
     service_configuration: {}
 package: egeoffrey-service-bluetooth
-revision: 14
+revision: 15
 tags: service bluetooth
 version: 1.0
