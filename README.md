@@ -275,4 +275,4 @@ collection raspberrypi
 
 ## Version
 
-The version of this egeoffrey-collection-raspberrypi is 1.1-2 on the master branch.
+The version of this egeoffrey-collection-raspberrypi is 1.1-3 on the master branch.
