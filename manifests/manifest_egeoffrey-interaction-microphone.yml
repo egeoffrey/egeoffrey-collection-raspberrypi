@@ -24,6 +24,6 @@ modules:
       placeholder: plughw:1,0
       required: false
 package: egeoffrey-interaction-microphone
-revision: 11
+revision: 12
 tags: interaction voice
 version: 1.0
