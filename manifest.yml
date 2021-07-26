@@ -1,4 +1,4 @@
-branch: master
+branch: development
 container_config:
   devices:
   - /dev/ttyAMA0:/dev/ttyAMA0
@@ -770,6 +770,7 @@ modules:
         placeholder: 98
         required: false
 package: egeoffrey-collection-raspberrypi
-revision: 8
+revision: 9
+sdk_branch: development
 tags: collection raspberrypi
 version: 1.1
