@@ -770,7 +770,7 @@ modules:
         placeholder: 98
         required: false
 package: egeoffrey-collection-raspberrypi
-revision: 9
+revision: 10
 sdk_branch: development
 tags: collection raspberrypi
 version: 1.1

@@ -277,4 +277,4 @@ collection raspberrypi
 
 ## Version
 
-The version of this egeoffrey-collection-raspberrypi is 1.1-9 on the development branch.
+The version of this egeoffrey-collection-raspberrypi is 1.1-10 on the development branch.
