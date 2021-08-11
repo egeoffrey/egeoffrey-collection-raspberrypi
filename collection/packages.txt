@@ -2,7 +2,6 @@ egeoffrey/egeoffrey-interaction-microphone:master
 egeoffrey/egeoffrey-notification-buzzer:master
 egeoffrey/egeoffrey-notification-gsm:master
 egeoffrey/egeoffrey-notification-speaker:master
-egeoffrey/egeoffrey-notification-chromecast:master
 egeoffrey/egeoffrey-service-ads1x15:master
 egeoffrey/egeoffrey-service-bluetooth:master
 egeoffrey/egeoffrey-service-dht:master
