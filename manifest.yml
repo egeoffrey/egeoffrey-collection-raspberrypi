@@ -3,8 +3,6 @@ container_config:
   devices:
   - /dev/ttyAMA0:/dev/ttyAMA0
   network_mode: host
-  ports:
-  - 8081:8081
   privileged: true
 description: An All-In-One collection of the most common eGeoffrey packages running
   on Raspberry Pi
@@ -120,20 +118,6 @@ modules:
       name: bluetooth_speaker_mac_address
       placeholder: 100
       required: false
-- notification/chromecast:
-    description: Play a notification through a Chromecast device
-    module_configuration:
-    - description: The hostname/IP address of the Chromecast device
-      format: string
-      name: device_ip
-      placeholder: 192.168.0.53
-      required: true
-    - description: The IP address where this module runs (the device will connect
-        back here to play the audio)
-      format: string
-      name: local_ip
-      placeholder: 192.168.0.254
-      required: true
 - service/ads1x15:
     description: retrieve values from a ads1x15 analog to digital converter
     service_configuration:
@@ -770,6 +754,6 @@ modules:
         placeholder: 98
         required: false
 package: egeoffrey-collection-raspberrypi
-revision: 8
+revision: 1
 tags: collection raspberrypi
-version: 1.1
+version: 1.2

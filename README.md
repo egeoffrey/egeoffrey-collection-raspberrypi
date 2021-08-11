@@ -51,10 +51,6 @@ To configure each module included in this package, once started, click on the *'
     - *bluetooth_speaker**: weather the speaker has to be connected through bluetooth
     - *bluetooth_speaker_mac_address*: the MAC address of the bluetooth speaker (e.g. F5:B6:AB:45:63:C6)
     - *bluetooth_speaker_mac_address*: the volume to set to the speaker (e.g. 100)
-- **notification/chromecast**: play a notification through a Chromecast device
-  - Module configuration:
-    - *device_ip**: the hostname/IP address of the Chromecast device (e.g. 192.168.0.53)
-    - *local_ip**: the IP address where this module runs (the device will connect back here to play the audio) (e.g. 192.168.0.254)
 - **service/ads1x15**: retrieve values from a ads1x15 analog to digital converter
   - Service configuration:
     - Mode 'pull':
@@ -256,8 +252,6 @@ To function properly, when running in a Docker container, the following addition
 devices:
 - /dev/ttyAMA0:/dev/ttyAMA0
 network_mode: host
-ports:
-- 8081:8081
 privileged: true
 ```
 
@@ -277,4 +271,4 @@ collection raspberrypi
 
 ## Version
 
-The version of this egeoffrey-collection-raspberrypi is 1.1-8 on the master branch.
+The version of this egeoffrey-collection-raspberrypi is 1.2-1 on the master branch.

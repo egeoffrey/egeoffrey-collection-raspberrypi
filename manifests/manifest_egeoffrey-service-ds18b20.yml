@@ -17,6 +17,6 @@ modules:
         placeholder: 28-0000067b9508
         required: true
 package: egeoffrey-service-ds18b20
-revision: 13
+revision: 1
 tags: service ds18b20 temperature weather raspberrypi
-version: 1.0
+version: 1.1
